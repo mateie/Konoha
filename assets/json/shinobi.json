@@ -1,0 +1,56 @@
+{
+    "clans": 
+    [
+        {
+            "name": "Aburame Clan"
+        },
+        {
+            "name": "Akimichi Clan"
+        },
+        {
+            "name": "Hatake Clan"
+        },
+        {
+            "name": "Hōki Clan"
+        },
+        {
+            "name": "Hyūga Clan"
+        },
+        {
+            "name": "Inuzuka Clan"
+        },
+        {
+            "name": "Kohaku Clan"
+        },
+        {
+            "name": "Kurama Clan"
+        },
+        {
+            "name": "Lee Clan"
+        },
+        {
+            "name": "Nara Clan"
+        },
+        {
+            "name": "Onikuma Clan"
+        },
+        {
+            "name": "Sarutobi Clan"
+        },
+        {
+            "name": "Senju Clan"
+        },
+        {
+            "name": "Shimura Clan"
+        },
+        {
+            "name": "Uchiha Clan"
+        },
+        {
+            "name": "Uzumaki Clan"
+        },
+        {
+            "name": "Yamanaka Clan"
+        }
+    ]
+}

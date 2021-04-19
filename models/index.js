@@ -1,0 +1,2 @@
+require('./Guild');
+require('./User');

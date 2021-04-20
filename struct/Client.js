@@ -20,7 +20,7 @@ module.exports = class KonohaClient extends AkairoClient {
         });
 
         this.commandHandler = new CommandHandler(this, {
-            directory: path.join(__dirname, '..', 'commands'),
+            directory: path.join(__dirname, '..', 'commands', 'core'),
             prefix: 'k',
             allowMention: true,
             fetchMembers: true,
@@ -29,6 +29,15 @@ module.exports = class KonohaClient extends AkairoClient {
             commandUtilLifetime: 3e5,
             commandUtilSweepInterval: 9e5,
             handleEdits: true,
+            defaultCooldown: 2500,
+        });
+
+        this.shinobiCommandHandler = new CommandHandler(this, {
+            directory: path.join(__dirname, '..', 'commands', 'shinobi'),
+            prefix: `${this.commandHandler.prefix} shinobi`,
+            allowMention: true,
+            fetchMembers: true,
+            blockBots: true,
             defaultCooldown: 2500,
         });
 
@@ -50,13 +59,17 @@ module.exports = class KonohaClient extends AkairoClient {
         this.listenerHandler.setEmitters({
             process: process,
             commandHandler: this.commandHandler,
+            shinobiCommandHandler: this.shinobiCommandHandler,
             listenerHandler: this.listenerHandler,
             inhibitorHandler: this.inhibitorHandler,
         });
 
         this.commandHandler.loadAll();
+        this.shinobiCommandHandler.loadAll();
         this.listenerHandler.loadAll();
         this.inhibitorHandler.loadAll();
+
+        console.log(this.shinobiCommandHandler);
 
         this.database = new Database(this);
         this.music = new Music(this);

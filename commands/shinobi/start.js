@@ -1,4 +1,4 @@
-const Command = require('../../struct/Command');
+const Command = require('../../struct/ShinobiCommand');
 
 module.exports = class ShinobiStartCommand extends Command {
     constructor() {

@@ -3,6 +3,7 @@ const { Schema, model } = require('mongoose');
 const schema = new Schema({
     id: {
         type: String,
+        unique: true,
         required: true,
     },
     name: {
@@ -13,6 +14,7 @@ const schema = new Schema({
         type: String,
         required: true,
     },
+    prefix: String,
     settings: {
         strict: {
             enabled: {

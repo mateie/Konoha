@@ -1,4 +1,4 @@
-const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
+const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
 const { Collection } = require('discord.js');
 const path = require('path');
 const chalk = require('chalk');
@@ -21,7 +21,7 @@ module.exports = class KonohaClient extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: path.join(__dirname, '..', 'commands'),
-            prefix: 'k ',
+            prefix: 'k',
             allowMention: true,
             fetchMembers: true,
             blockBots: true,
@@ -36,19 +36,27 @@ module.exports = class KonohaClient extends AkairoClient {
             directory: path.join(__dirname, '..', 'events'),
         });
 
-        this.games = new Collection();
+        this.inhibitorHandler = new InhibitorHandler(this, {
+            directory: path.join(__dirname, '..', 'inhibitors'),
+        });
 
+        this.games = new Collection();
     }
 
     setup() {
         this.commandHandler.useListenerHandler(this.listenerHandler);
+        this.commandHandler.useListenerHandler(this.inhibitorHandler);
 
         this.listenerHandler.setEmitters({
             process: process,
+            commandHandler: this.commandHandler,
+            listenerHandler: this.listenerHandler,
+            inhibitorHandler: this.inhibitorHandler,
         });
 
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();
+        this.inhibitorHandler.loadAll();
 
         this.database = new Database(this);
         this.music = new Music(this);

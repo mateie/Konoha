@@ -19,7 +19,7 @@ module.exports = class AboutCommand extends Command {
     }
 
     exec(message) {
-        const repo = `https://gtihub.com/${GITHUB_REPO_USERNAME}/${GITHUB_REPO_NAME}`;
+        const repo = `https://github.com/${GITHUB_REPO_USERNAME}/${GITHUB_REPO_NAME}`;
         const owners = Util.getOwners(this.client);
         const embed = Util.embed()
         .setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ format: 'png', dynamic: true }))

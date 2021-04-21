@@ -2,55 +2,52 @@
     "clans": 
     [
         {
-            "name": "Aburame Clan"
+            "name": "Aburame Clan",
+            "chakra": 100
         },
         {
-            "name": "Akimichi Clan"
+            "name": "Hyūga Clan",
+            "chakra": 200
         },
         {
-            "name": "Hatake Clan"
+            "name": "Inuzuka Clan",
+            "chakra": 100
         },
         {
-            "name": "Hōki Clan"
+            "name": "Kurama Clan",
+            "chakra": 500
         },
         {
-            "name": "Hyūga Clan"
+            "name": "Lee Clan",
+            "chakra": 0
         },
         {
-            "name": "Inuzuka Clan"
+            "name": "Nara Clan",
+            "chakra": 100
         },
         {
-            "name": "Kohaku Clan"
+            "name": "Ōtsutsuki Clan",
+            "chakra": 3000
         },
         {
-            "name": "Kurama Clan"
+            "name": "Sarutobi Clan",
+            "chakra": 100
         },
         {
-            "name": "Lee Clan"
+            "name": "Senju Clan",
+            "chakra": 1000
         },
         {
-            "name": "Nara Clan"
+            "name": "Uchiha Clan",
+            "chakra": 1000
         },
         {
-            "name": "Onikuma Clan"
+            "name": "Uzumaki Clan",
+            "chakra": 5000
         },
         {
-            "name": "Sarutobi Clan"
-        },
-        {
-            "name": "Senju Clan"
-        },
-        {
-            "name": "Shimura Clan"
-        },
-        {
-            "name": "Uchiha Clan"
-        },
-        {
-            "name": "Uzumaki Clan"
-        },
-        {
-            "name": "Yamanaka Clan"
+            "name": "Yamanaka Clan",
+            "chakra": 100
         }
     ]
 }

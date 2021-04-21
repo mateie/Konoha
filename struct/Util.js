@@ -13,6 +13,10 @@ module.exports = class KonohaUtil {
         return embed;
     }
 
+    static levelupChance(shinobi) {
+        return Math.random() < 0.5;
+    }
+
     static durationToMs(dur) {
         return dur.split(':').map(Number).reduce((acc, curr) => curr + acc * 60) * 1000;
     }

@@ -48,13 +48,14 @@ module.exports = class KonohaClient extends AkairoClient {
         this.inhibitorHandler = new InhibitorHandler(this, {
             directory: path.join(__dirname, '..', 'inhibitors'),
         });
-
-        this.games = new Collection();
     }
 
     setup() {
         this.commandHandler.useListenerHandler(this.listenerHandler);
         this.commandHandler.useListenerHandler(this.inhibitorHandler);
+
+        this.shinobiCommandHandler.useListenerHandler(this.listenerHandler);
+        this.shinobiCommandHandler.useListenerHandler(this.inhibitorHandler);
 
         this.listenerHandler.setEmitters({
             process: process,
@@ -68,8 +69,6 @@ module.exports = class KonohaClient extends AkairoClient {
         this.shinobiCommandHandler.loadAll();
         this.listenerHandler.loadAll();
         this.inhibitorHandler.loadAll();
-
-        console.log(this.shinobiCommandHandler);
 
         this.database = new Database(this);
         this.music = new Music(this);

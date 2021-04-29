@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const moment = require('moment');
 
-const { owners, token } = require('../config');
+const { owners, token, default_prefix } = require('../config');
 
 const Database = require('./Database');
 const Music = require('./Music');
@@ -20,7 +20,7 @@ module.exports = class KonohaClient extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: path.join(__dirname, '..', 'commands'),
-            prefix: ['konoha', 'k'],
+            prefix: default_prefix,
             allowMention: true,
             fetchMembers: true,
             blockBots: true,

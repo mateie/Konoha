@@ -19,7 +19,7 @@ const {
 
 module.exports = {
     token: TOKEN,
-    defaultPrefix: ['konoha', 'k'],
+    default_prefix: ['konoha', 'k'],
     owners: [OWNER, SO],
     invite_link: INVITE_LINK,
     database: DB,

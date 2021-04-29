@@ -9,7 +9,7 @@ module.exports = class PauseCommand extends Command {
         });
     }
 
-    async run(message) {
+    async exec(message) {
         const { music } = message.guild;
 
         if (!music.player || !music.player.playing) {

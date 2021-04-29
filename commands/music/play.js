@@ -19,7 +19,7 @@ module.exports = class PlayCommand extends Command {
         });
     }
 
-    async run(message, { query }) {
+    async exec(message, { query }) {
         const { music } = message.guild;
 
         if (!message.member.voice.channel) return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));

@@ -11,7 +11,7 @@ module.exports = class NowPlayingCommand extends Command {
         });
     }
 
-    run(message) {
+    exec(message) {
         const { music } = message.guild;
 
         if (!music.player || !music.player.playing) {

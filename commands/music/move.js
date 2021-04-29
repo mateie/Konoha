@@ -28,7 +28,7 @@ module.exports = class MoveCommand extends Command {
         });
     }
 
-    async run(message, { from, to }) {
+    async exec(message, { from, to }) {
         const { music } = message.guild;
 
         if (!music.player || !music.player.playing) {

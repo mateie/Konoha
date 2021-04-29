@@ -15,7 +15,7 @@ module.exports = class ReadyEvent extends Listener {
         setInterval(() => {
             this.client.database.checkGuilds(this.client.guilds.cache);
             this.client.database.checkUsers(this.client.users.cache);
-        }, 30000);
+        }, 600000);
 
         this.client.setPresence();
         this.client.music.init();

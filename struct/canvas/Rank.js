@@ -5,32 +5,6 @@ const Util = require('canvacord/plugins/Util');
 module.exports = class KonohaRank extends Rank {
     constructor() {
         super();
-
-        this.data.ryo = {
-            display: true,
-            data: 1,
-            textColor: '#FFFFFF',
-            color: '#F3F3F3',
-            displayText: 'RYO',
-        };
-    }
-
-    setRyo(data, text = 'RYO', display = true) {
-        if (typeof data !== 'number') throw new Error(`Ryo data must be a number, received ${typeof data}!`);
-        this.data.ryo.data = data;
-        this.data.ryo.display = !!display;
-        if (!text || typeof text !== 'string') text = 'RYO';
-        this.data.ryo.displayText = text;
-
-        return this;
-    }
-
-    setRyoColor(text = '#FFFFFF', number = '#FFFFFF') {
-        if (!text || typeof text !== 'string') text = '#FFFFFF';
-        if (!number || typeof number !== 'string') number = '#FFFFFF';
-        this.data.ryo.textColor = text;
-        this.data.ryo.color = number;
-        return this;
     }
 
     async buildCard(ops = { fontX: 'Manrope', fontY: 'Manrope' }) {
@@ -107,18 +81,6 @@ module.exports = class KonohaRank extends Rank {
             ctx.textAlign = 'end';
             ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || '-').width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
         }
-
-        // fill ryo
-        /* if (this.data.ryo.display && !isNaN(this.data.ryo.data)) {
-            ctx.font = `bold 36px ${ops.fontX}`;
-            ctx.fillStyle = this.data.ryo.textColor;
-            ctx.fillText(this.data.ryo.displayText, 630 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width - 7 - ctx.measureText(this.data.rank.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.ryo.data)) || "-").width, 81);
-
-            ctx.font = `bold 32px ${ops.fontX}`;
-            ctx.fillStyle = this.data.ryo.color;
-            ctx.textAlign = "end";
-            ctx.fillText(Util.toAbbrev(parseInt(this.data.ryo.data)), 620 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width - 7 - ctx.measureText(this.data.rank.displayText).width, 81);
-        }*/
 
         // show progress
         ctx.font = `bold 30px ${ops.fontX}`;

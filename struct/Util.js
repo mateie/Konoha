@@ -13,8 +13,13 @@ module.exports = class KonohaUtil {
         return embed;
     }
 
-    static levelupChance(shinobi) {
-        return Math.random() < 0.5;
+    static capFirstLetter(string) {
+        if (typeof string !== 'string') throw Error('String not provided');
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    static length(object) {
+        return object ? Object.keys(object).length : 0;
     }
 
     static durationToMs(dur) {
@@ -212,10 +217,19 @@ module.exports = class KonohaUtil {
         const owners = [];
         client.ownerID.forEach(owner => {
             const found = client.users.cache.get(owner);
-            owners.push(`${found.username}#${found.discriminator}`);
+            owners.push(`${found.username}`);
         });
 
-        return owners;
+        if(owners.length === 1) {
+            return owners[0];
+        } else if(owners.length === 2) {
+            console.log(owners.length, owners);
+            return `${owners[0]} and ${owners[1]}`;
+        } else if(owners.length > 2) {
+            return owners.join(', ');
+        } else {
+            return 'Unknown';
+        }
     }
 
     static async awaitMessages(message) {
@@ -245,7 +259,7 @@ module.exports = class KonohaUtil {
     static applyText(canvas, text, defaultFontSize, width, font) {
         const ctx = canvas.getContext('2d');
         do {
-            ctx.font = `${(defaultFontSize -= 1)}px ${font}`;
+            ctx.font = `${(defaultFontSize -= 10)}px ${font}`;
         } while (ctx.measureText(text).width > width);
         return ctx.font;
     }

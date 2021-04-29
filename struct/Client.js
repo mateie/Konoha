@@ -1,5 +1,4 @@
 const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
-const { Collection } = require('discord.js');
 const path = require('path');
 const chalk = require('chalk');
 const moment = require('moment');
@@ -20,8 +19,8 @@ module.exports = class KonohaClient extends AkairoClient {
         });
 
         this.commandHandler = new CommandHandler(this, {
-            directory: path.join(__dirname, '..', 'commands', 'core'),
-            prefix: 'k',
+            directory: path.join(__dirname, '..', 'commands'),
+            prefix: ['konoha', 'k'],
             allowMention: true,
             fetchMembers: true,
             blockBots: true,
@@ -29,15 +28,6 @@ module.exports = class KonohaClient extends AkairoClient {
             commandUtilLifetime: 3e5,
             commandUtilSweepInterval: 9e5,
             handleEdits: true,
-            defaultCooldown: 2500,
-        });
-
-        this.shinobiCommandHandler = new CommandHandler(this, {
-            directory: path.join(__dirname, '..', 'commands', 'shinobi'),
-            prefix: `${this.commandHandler.prefix} shinobi`,
-            allowMention: true,
-            fetchMembers: true,
-            blockBots: true,
             defaultCooldown: 2500,
         });
 
@@ -54,19 +44,14 @@ module.exports = class KonohaClient extends AkairoClient {
         this.commandHandler.useListenerHandler(this.listenerHandler);
         this.commandHandler.useListenerHandler(this.inhibitorHandler);
 
-        this.shinobiCommandHandler.useListenerHandler(this.listenerHandler);
-        this.shinobiCommandHandler.useListenerHandler(this.inhibitorHandler);
-
         this.listenerHandler.setEmitters({
             process: process,
             commandHandler: this.commandHandler,
-            shinobiCommandHandler: this.shinobiCommandHandler,
             listenerHandler: this.listenerHandler,
             inhibitorHandler: this.inhibitorHandler,
         });
 
         this.commandHandler.loadAll();
-        this.shinobiCommandHandler.loadAll();
         this.listenerHandler.loadAll();
         this.inhibitorHandler.loadAll();
 
@@ -76,7 +61,7 @@ module.exports = class KonohaClient extends AkairoClient {
         this.xp = XP;
     }
 
-    async start() {
+    start() {
         this.setup();
         return super.login(TOKEN);
     }

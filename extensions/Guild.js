@@ -6,6 +6,8 @@ const Guild = Structures.get('Guild');
 class KonohaGuild extends Guild {
     constructor(client, data) {
         super(client, data);
+
+        this.handleMusic();
     }
 
     handleMusic() {

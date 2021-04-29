@@ -1,14 +1,6 @@
 const { Manager } = require('@lavacord/discord.js');
 const { LavasfyClient } = require('lavasfy');
-const {
-    LAVA_HOST,
-    LAVA_PORT,
-    LAVA_PASS,
-    ENABLE_SPOTIFY,
-    SPOTIFY_ID,
-    SPOTIFY_SECRET,
-    SPOTIFY_PLAYLIST_PAGE_LIMIT,
-} = process.env;
+const { lavalink, spotify } = require('../config');
 
 module.exports = class KonohaMusic {
     constructor(client) {
@@ -17,9 +9,9 @@ module.exports = class KonohaMusic {
         this.nodes = [
             {
                 id: 'main',
-                host: LAVA_HOST,
-                port: LAVA_PORT,
-                password: LAVA_PASS,
+                host: lavalink.host,
+                port: lavalink.port,
+                password: lavalink.password,
             },
         ];
     }
@@ -29,11 +21,11 @@ module.exports = class KonohaMusic {
             user: this.client.user.id,
         });
 
-        this.spotify = ENABLE_SPOTIFY === 'true'
+        this.spotify = spotify.enabled
             ? new LavasfyClient({
-                clientID: SPOTIFY_ID,
-                clientSecret: SPOTIFY_SECRET,
-                playlistLoadLimit: SPOTIFY_PLAYLIST_PAGE_LIMIT,
+                clientID: spotify.id,
+                clientSecret: spotify.secret,
+                playlistLoadLimit: spotify.playlist_limit,
             }, [...[...this.manager.nodes.values()]])
             : null;
 

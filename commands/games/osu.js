@@ -1,9 +1,9 @@
-const { OSU_API } = process.env;
 const Command = require('../../struct/Command');
 const Util = require('../../struct/Util');
 const Osu = require('node-osu');
 const moment = require('moment');
-const osu = new Osu.Api(OSU_API, {
+const { osu_api } = require('../../config');
+const osu = new Osu.Api(osu_api, {
     completeScores: true,
     parseNumeric: true,
 });

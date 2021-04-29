@@ -7,8 +7,8 @@ const { version: djsVersion } = require('discord.js');
 const { version: akairoVersion } = require('discord-akairo');
 const { version, dependencies, optionalDependencies } = require('../../package.json');
 const deps = { ...dependencies, ...optionalDependencies };
-const { GITHUB_REPO_USERNAME, GITHUB_REPO_NAME, INVITE_LINK } = process.env;
-const source = GITHUB_REPO_USERNAME && GITHUB_REPO_NAME;
+const { github, invite_link } = require('../../config');
+const source = github.username && github.repo;
 
 module.exports = class AboutCommand extends Command {
     constructor() {
@@ -19,7 +19,7 @@ module.exports = class AboutCommand extends Command {
     }
 
     exec(message) {
-        const repo = `https://github.com/${GITHUB_REPO_USERNAME}/${GITHUB_REPO_NAME}`;
+        const repo = `https://github.com/${github.username}/${github.repo}`;
         const owners = Util.getOwners(this.client);
         const embed = Util.embed()
         .setAuthor(this.client.user.username, this.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
@@ -30,7 +30,7 @@ module.exports = class AboutCommand extends Command {
         .addField('Source Code', source ? Util.embedURL('GitHub', repo) : 'N/A', true)
         .addField('Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
         .addField('Uptime', moment.duration(this.client.uptime).format('d:hh:mm:ss'), true)
-        .addField('Invite', INVITE_LINK ? Util.embedURL('Link', INVITE_LINK) : 'N/A', true)
+        .addField('Invite', invite_link ? Util.embedURL('Link', invite_link) : 'N/A', true)
         .addField('Version', `v${version}`, true)
         .addField('Node.js', process.version, true)
         .addField('Discord.js', `v${djsVersion}`, true)

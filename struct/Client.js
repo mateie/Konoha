@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const moment = require('moment');
 
-const { OWNER, SO, TOKEN } = process.env;
+const { owners, token } = require('../config');
 
 const Database = require('./Database');
 const Music = require('./Music');
@@ -13,7 +13,7 @@ const XP = require('./users/XP');
 module.exports = class KonohaClient extends AkairoClient {
     constructor() {
         super({
-            ownerID: [OWNER, SO],
+            ownerID: owners,
         }, {
             disableMentions: 'everyone',
         });
@@ -63,7 +63,7 @@ module.exports = class KonohaClient extends AkairoClient {
 
     start() {
         this.setup();
-        return super.login(TOKEN);
+        return super.login(token);
     }
 
     setPresence() {

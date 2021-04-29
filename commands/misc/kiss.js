@@ -1,6 +1,7 @@
 const Command = require('../../struct/Command');
 const Util = require('../../struct/Util');
 const axios = require('axios');
+const { owners } = require('../../config');
 
 module.exports = class KissCommand extends Command {
     constructor() {
@@ -23,7 +24,7 @@ module.exports = class KissCommand extends Command {
     async exec(message, { mention }) {
         const embed = Util.embed();
 
-        if (message.author.id !== process.env.OWNER && mention.user.id == process.env.LOVE) {
+        if (message.author.id !== owners[0] && mention.user.id == owners[1]) {
             return message.channel.send('You can\'t ;)');
         }
 
@@ -31,7 +32,7 @@ module.exports = class KissCommand extends Command {
             embed.setTitle(`${message.author.username} kissed himself, what a weirdo o_O`);
         }
 
-        if (message.author.id == process.env.OWNER && mention.user.id == process.env.LOVE) {
+        if (message.author.id == owners[0] && mention.user.id == owners[1]) {
             embed.setTitle(`${message.author.username} kissed ${mention.user.username} :purple_heart:`);
         } else {
             embed.setTitle(`${message.author.username} kissed ${mention.user.username}`);

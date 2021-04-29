@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const schema = new mongoose.Schema({
+const schema = new Schema({
     id: {
         type: String,
-        required: true,
         unique: true,
+        required: true,
     },
     name: {
         type: String,
@@ -14,12 +14,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    commands: {
-        type: Map,
-        of: Number,
-    },
     settings: {
-        prefix: String,
         strict: {
             enabled: {
                 type: Boolean,
@@ -29,44 +24,44 @@ const schema = new mongoose.Schema({
                 type: String,
                 default: null,
             },
-            logs: {
-                enabled: {
-                    type: Boolean,
-                    default: false,
-                },
-                channel: {
-                    type: String,
-                    default: null,
-                },
+        },
+        logs: {
+            enabled: {
+                type: Boolean,
+                default: false,
             },
-            punish: {
-                enabled: {
-                    type: Boolean,
-                    default: false,
-                },
-                mute: {
-                    type: Number,
-                    default: null,
-                },
-                kick: {
-                    type: Number,
-                    default: null,
-                },
-                ban: {
-                    type: Number,
-                    default: null,
-                },
+            channel: {
+                type: String,
+                default: null,
             },
         },
-        mutes: {
-            type: Array,
-            default: [],
+        punish: {
+            enabled: {
+                type: Boolean,
+                default: false,
+            },
+            mute: {
+                type: Number,
+                default: null,
+            },
+            kick: {
+                type: Number,
+                default: null,
+            },
+            ban: {
+                type: Number,
+                default: null,
+            },
         },
-        warns: {
-            type: Array,
-            default: [],
-        },
+    },
+    mutes: {
+        type: Array,
+        default: [],
+    },
+    warns: {
+        type: Array,
+        default: [],
     },
 });
 
-module.exportsd = mongoose.model('Guild', schema);
+module.exports = model('Guild', schema);

@@ -2,6 +2,9 @@ const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akair
 const path = require('path');
 const chalk = require('chalk');
 const moment = require('moment');
+const mongoose = require('mongoose');
+
+const Guild = mongoose.model('Guild');
 
 const { owners, token, default_prefix } = require('../config');
 
@@ -9,6 +12,7 @@ const Database = require('./Database');
 const Music = require('./Music');
 const Cards = require('./Cards');
 const XP = require('./users/XP');
+const Provider = require('./Provider');
 
 module.exports = class KonohaClient extends AkairoClient {
     constructor() {
@@ -34,6 +38,8 @@ module.exports = class KonohaClient extends AkairoClient {
         this.listenerHandler = new ListenerHandler(this, {
             directory: path.join(__dirname, '..', 'events'),
         });
+
+        this.guilds.settings = new Provider(Guild);
     }
 
     setup() {

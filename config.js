@@ -1,4 +1,5 @@
 const {
+    NODE_ENV,
     TOKEN,
     OWNER,
     SO,
@@ -19,7 +20,7 @@ const {
 
 module.exports = {
     token: TOKEN,
-    default_prefix: 'd',
+    default_prefix: NODE_ENV === 'production' ? 'k' : 'd',
     owners: [OWNER, SO],
     invite_link: INVITE_LINK,
     database: DB,

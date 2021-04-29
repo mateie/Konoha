@@ -19,7 +19,7 @@ const {
 
 module.exports = {
     token: TOKEN,
-    default_prefix: 'd',
+    default_prefix: 'k',
     owners: [OWNER, SO],
     invite_link: INVITE_LINK,
     database: DB,

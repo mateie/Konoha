@@ -1,4 +1,4 @@
-const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler } = require('discord-akairo');
+const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
 const path = require('path');
 const chalk = require('chalk');
 const moment = require('moment');
@@ -34,26 +34,19 @@ module.exports = class KonohaClient extends AkairoClient {
         this.listenerHandler = new ListenerHandler(this, {
             directory: path.join(__dirname, '..', 'events'),
         });
-
-        this.inhibitorHandler = new InhibitorHandler(this, {
-            directory: path.join(__dirname, '..', 'inhibitors'),
-        });
     }
 
     setup() {
         this.commandHandler.useListenerHandler(this.listenerHandler);
-        this.commandHandler.useListenerHandler(this.inhibitorHandler);
 
         this.listenerHandler.setEmitters({
             process: process,
             commandHandler: this.commandHandler,
             listenerHandler: this.listenerHandler,
-            inhibitorHandler: this.inhibitorHandler,
         });
 
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();
-        this.inhibitorHandler.loadAll();
 
         this.database = new Database(this);
         this.music = new Music(this);
@@ -69,8 +62,8 @@ module.exports = class KonohaClient extends AkairoClient {
     setPresence() {
         this.user.setPresence({
             activity: {
-                name: `${this.commandHandler.prefix} help`,
-                type: 'LISTENING',
+                name: 'Over the Village',
+                type: 'WATCHING',
             },
             status: 'online',
         });

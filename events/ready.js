@@ -12,19 +12,17 @@ module.exports = class ReadyEvent extends Listener {
     async exec() {
         this.client.logger('green', `${this.client.user.username} v${version} Running...`);
 
-        setInterval(() => {
-            this.client.database.checkGuilds(this.client.guilds.cache);
-            this.client.database.checkUsers(this.client.users.cache);
-        }, 600000);
+        this.client.database.checkGuilds(this.client.guilds.cache);
+        this.client.database.checkUsers(this.client.users.cache);
 
         this.client.setPresence();
         this.client.music.init();
 
         const nodes = [...this.client.music.manager.nodes.values()];
-        for(const node of nodes) {
+        for (const node of nodes) {
             try {
                 await node.connect();
-            } catch(err) {
+            } catch (err) {
                 this.client.music.manager.emit('error', err, node);
             }
         }

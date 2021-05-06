@@ -9,6 +9,6 @@ module.exports = class ErrorEvent extends Listener {
     }
 
     exec(err) {
-        this.client.log(err);
+        this.client.log(new Error(err));
     }
 };

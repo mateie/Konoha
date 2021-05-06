@@ -7,25 +7,25 @@
   "dependencies": {
     "@lavacord/discord.js": "^0.0.7",
     "axios": "^0.21.1",
-    "canvacord": "^5.1.0",
+    "canvacord": "^5.2.0",
     "canvas": "^2.7.0",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "color-to-name": "^1.1.0",
     "colornames": "^1.1.1",
     "common-tags": "^1.8.0",
-    "didyoumean2": "^4.1.0",
+    "didyoumean2": "^4.2.0",
     "discord-akairo": "^8.1.0",
     "discord.js": "^12.5.3",
-    "lavasfy": "^2.2.0",
+    "lavasfy": "^2.2.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.12.3",
+    "mongoose": "^5.12.7",
     "node-fetch": "^2.6.1",
     "node-osu": "^2.2.1",
     "string-progress": "^1.8.9",
-    "ytdl-core": "^4.5.0"
+    "ytdl-core": "^4.7.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^9.0.0"
   }
 }

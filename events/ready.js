@@ -18,8 +18,6 @@ module.exports = class ReadyEvent extends Listener {
         this.client.setPresence();
         this.client.music.init();
 
-        // console.log(this.client);
-
         const nodes = [...this.client.music.manager.nodes.values()];
         for (const node of nodes) {
             try {

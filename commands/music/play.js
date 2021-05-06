@@ -22,14 +22,14 @@ module.exports = class PlayCommand extends Command {
     async exec(message, { query }) {
         const { music } = message.guild;
 
-        if (!message.member.voice.channel) return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));
+        if (!message.member.voice.channel) return message.channel.send('**You must be in a voice channel**');
 
         if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(Util.embed().setDescription(`You have to be in ${message.guild.me.voice.channel} to use Music commands`));
+            return message.channel.send(`You have to be in **${message.guild.me.voice.channel}** to use Music commands`);
         }
 
         if (!music.node || !music.node.connected) {
-            return message.channel.send(Util.embed().setDescription('Lavalink Node is not connected'));
+            return message.channel.send('--Lavalink Node is not connected--');
         }
 
         try {
@@ -40,7 +40,7 @@ module.exports = class PlayCommand extends Command {
                 },
                 tracks,
             } = await music.load(Util.isValidURL(query) ? query : `ytsearch:${query}`);
-            if (!tracks.length) return message.channel.send(Util.embed().setDescription('Couldn\'t find any results'));
+            if (!tracks.length) return message.channel.send('--Couldn\'t find any results--');
 
             if (loadType === 'PLAYLIST_LOADED') {
                 for (const track of tracks) {
@@ -48,7 +48,7 @@ module.exports = class PlayCommand extends Command {
                     music.queue.push(track);
                 }
 
-                message.channel.send(Util.embed().setDescription(`Loaded \`${tracks.length}\` tracks from **${name}**`));
+                message.channel.send(`Loaded \`${tracks.length}\` tracks from **${name}**`);
             } else {
                 const track = tracks[0];
                 track.requester = message.author;

@@ -24,28 +24,28 @@ module.exports = class SeekCommand extends Command {
         const durationPattern = /^[0-5]?[0-9](:[0-5][0-9]){1,2}$/;
 
         if (!music.player && !music.player.playing) {
-            return message.channel.send(Util.embed().setDescription('Currently not playing anything'));
+            return message.channel.send('**Currently not playing anything**');
         }
 
         if (!message.member.voice.channel) {
-            return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));
+            return message.channel.send('**You must be in a voice channel**');
         }
 
         if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(Util.embed().setDescription(`You must be in ${message.guild.me.voice.channel} to use Music commands`));
+            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
         }
 
         if (!music.current.info.isSeekable) {
-            return message.channel.send(Util.embed().setDescription('Current track is not seekable'));
+            return message.channel.send('**Current track is not seekable**');
         }
 
         if (!durationPattern.test(duration)) {
-            return message.channel.send(Util.embed().setDescription(`You provided an invalid duration. Examples: ${this.examples.length > 1 ? this.examples.join(', ') : this.examples[0]}`));
+            return message.channel.send('**You provided an invalid duration**');
         }
 
         const durationMs = Util.durationToMs(duration);
         if (durationMs > music.current.info.length) {
-            return message.channel.send(Util.embed().setDescription('The duration you provided exceeds the duration of the current track'));
+            return message.channel.send('**The duration you provided exceeds the duration of the current track**');
         }
 
         try {

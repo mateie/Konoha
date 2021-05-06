@@ -1,5 +1,4 @@
 const Command = require('../../struct/Command');
-const Util = require('../../struct/Util');
 
 module.exports = class StopCommand extends Command {
     constructor() {
@@ -13,15 +12,15 @@ module.exports = class StopCommand extends Command {
         const { music } = message.guild;
 
         if (!music.player) {
-            return message.channel.send(Util.embed().setDescription('Currently not playing anything'));
+            return message.channel.send('**Currently not playing anything**');
         }
 
         if (!message.member.voice.channel) {
-            return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));
+            return message.channel.send('**You must be in a voice channel**');
         }
 
         if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(Util.embed().setDescription(`You must be in ${message.guild.me.voice.channel} to use Music commands`));
+            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
         }
 
         try {

@@ -23,21 +23,21 @@ module.exports = class SearchCommand extends Command {
         const { music } = message.guild;
 
         if (!message.member.voice.channel) {
-            return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));
+            return message.channel.send('**You must be in a voice channel**');
         }
 
         if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(Util.embed().setDescription(`You must be in ${message.guild.me.voice.channel} to use Music commands`));
+            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
         }
 
         if (!music.node || !music.node.connected) {
-            return message.channel.send(Util.embed().setDescription('Lavalink node not connected'));
+            return message.channel.send('**Lavalink node not connected**');
         }
 
         try {
             let { tracks } = await music.load(`ytsearch:${query}`);
             if (!tracks.length) {
-                return message.channel.send(Util.embed().setDescription('Couldn\'t find any results'));
+                return message.channel.send('**Couldn\'t find any results**');
             }
 
             tracks = tracks.slice(0, 10);
@@ -48,14 +48,14 @@ module.exports = class SearchCommand extends Command {
 
             const collector = await Util.awaitMessages(message);
             if (!collector) {
-                return resultMessage.edit(Util.embed().setDescription('Time is up. Search cancelled'));
+                return resultMessage.edit('**Time is up. Search cancelled**');
             }
 
             const response = collector.first();
             if (response.deletable) response.delete();
 
             if (/^cancel$/i.exec(response.content)) {
-                return resultMessage.edit(Util.embed().setTitle('Search Cancelled'));
+                return resultMessage.edit('**Search cancelled**');
             }
 
             const track = tracks[response.content - 1];

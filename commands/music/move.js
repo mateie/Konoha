@@ -32,30 +32,30 @@ module.exports = class MoveCommand extends Command {
         const { music } = message.guild;
 
         if (!music.player || !music.player.playing) {
-            return message.channel.send(Util.embed().setDescription('Currently not playing anything'));
+            return message.channel.send('**Currently not playing anything**');
         }
 
         if (!music.queue.length) {
-            return message.channel.send(Util.embed().setDescription('Queue is empty'));
+            return message.channel.send('**Queue is empty**');
         }
 
         if (!message.member.voice.channel) {
-            return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));
+            return message.channel.send('**You must be in a voice channel**');
         }
 
         if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(Util.embed().setDescription(`You must be in ${message.guild.me.voice.channel} to move a song`));
+            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to move a song`);
         }
 
 
         if (from === to || (isNaN(from) || from < 1 || from > music.queue.length) || (isNaN(to) || to < 1 || to > music.queue.length)) {
-            return message.channel.send(Util.embed().setDescription('Number is invalid or exceeds queue length'));
+            return message.channel.send('**Number is invalid or exceeds queue length**');
         }
 
         const moved = music.queue[from - 1];
 
         Util.moveArrayElement(music.queue, from - 1, to - 1);
 
-        message.channel.send(Util.embed().setDescription(`Moved **${moved.info.title}** to \`${to}\``));
+        message.channel.send(`Moved **${moved.info.title}** to \`${to}\``);
     }
 };

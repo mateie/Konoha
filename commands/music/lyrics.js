@@ -17,7 +17,7 @@ module.exports = class LyricsCommand extends Command {
 
     async exec(message, { query }) {
         if(!query) {
-            return message.channel.send(Util.embed().setDescription('Play a song to display lyrics of it or provide a song title'));
+            return message.channel.send('**Play a song to display lyrics of it or provide a song title**');
         }
 
         try {
@@ -35,7 +35,7 @@ module.exports = class LyricsCommand extends Command {
             if (splittedLyrics.length > 1) await Util.pagination(lyricsMessage, message.author, splittedLyrics);
         } catch(err) {
             this.client.logger('red', err);
-            if (err.message === 'Sorry I couldn\'t find that song\'s lyrics') message.channel.send(Util.embed().setDescription(`${err.message}`));
+            if (err.message === 'Sorry I couldn\'t find that song\'s lyrics') message.channel.send(Util.embed().setDescription(`**${err.message}**`));
             else message.channel.send(`An error occured: ${err.message}`);
         }
     }

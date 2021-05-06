@@ -91,6 +91,18 @@ module.exports = class MusicHandler {
             .on('error', console.error);
     }
 
+    async leave(guild) {
+        try {
+            await this.client.music.manager.leave(guild.id);
+
+            if (this.textChannel) {
+                this.textChannel.send('**Left the voice channel**');
+            }
+        } catch (err) {
+            this.client.logger('red', err);
+        }
+    }
+
     setTextCh(text) {
         this.textChannel = text;
     }

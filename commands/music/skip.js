@@ -22,19 +22,19 @@ module.exports = class SkipCommand extends Command {
         const skipTo = pos ? parseInt(pos, 10) : null;
 
         if (!music.player || !music.player.playing) {
-            return message.channel.send(Util.embed().setDescription('Currently not playing anything'));
+            return message.channel.send('**Currently not playing anything**');
         }
 
         if (!message.member.voice.channel) {
-            return message.channel.send(Util.embed().setDescription('You must be in a voice channel'));
+            return message.channel.send('**You must be in a voice channel**');
         }
 
         if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(Util.embed().setDescription(`You must be on ${message.guild.voice.channel} to use Music commands`));
+            return message.channel.send(`You must be on **${message.guild.voice.channel}** to use Music commands`);
         }
 
         if (skipTo !== null && (isNaN(skipTo) || skipTo < 1 || skipTo > music.queue.length)) {
-            return message.channel.send(Util.embed().setDescription('Invalid number to skip to'));
+            return message.channel.send('**Invalid number to skip to**');
         }
 
         try {

@@ -15,7 +15,7 @@ module.exports = class NowPlayingCommand extends Command {
         const { music } = message.guild;
 
         if (!music.player || !music.player.playing) {
-            return message.channel.send(Util.embed().setDescription('Currently not playing anything'));
+            return message.channel.send('**Currently not playing anything**');
         }
 
         const track = music.current;

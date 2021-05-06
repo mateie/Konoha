@@ -7,6 +7,8 @@ module.exports = class ChannelsCommand extends Command {
         super('channels', {
             category: 'settings',
             aliases: ['ch', 'chs', 'channel'],
+            description: 'Change channel values for the server',
+            userPermissions: ['MANAGE_GUILD'],
             args: [
                 {
                     id: 'section',

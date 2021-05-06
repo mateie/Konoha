@@ -9,6 +9,7 @@ module.exports = class MutesCommand extends Command {
         super('mutes', {
             category: 'moderation',
             description: 'List of muted members',
+            userPermissions: ['VIEW_AUDIT_LOG'],
         });
     }
 

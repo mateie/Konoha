@@ -6,6 +6,8 @@ module.exports = class BansCommand extends Command {
         super('bans', {
             category: 'moderation',
             description: 'Shows all bans on the current server',
+            clientPermissions: ['VIEW_AUDIT_LOG'],
+            userPermissions: ['VIEW_AUDIT_LOG'],
         });
     }
 

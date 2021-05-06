@@ -7,6 +7,8 @@ module.exports = class BanCommand extends Command {
             category: 'moderation',
             aliases: ['ban-hammer'],
             description: 'Ban a member',
+            clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS'],
+            userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS'],
             args: [
                 {
                     id: 'member',

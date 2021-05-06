@@ -7,6 +7,8 @@ module.exports = class PunishCommand extends Command {
         super('punish', {
             category: 'moderation',
             description: 'Punish a member',
+            clientPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS', 'VIEW_AUDIT_LOG'],
+            userPermissions: ['KICK_MEMBERS', 'BAN_MEMBERS', 'VIEW_AUDIT_LOG'],
             args: [
                 {
                     id: 'member',

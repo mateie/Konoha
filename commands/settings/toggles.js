@@ -8,6 +8,7 @@ module.exports = class TogglesCommand extends Command {
             category: 'settings',
             aliases: ['tg', 'tgs', 'toggle'],
             description: 'Toggle settings in the database',
+            userPermissions: ['MANAGE_GUILD'],
             args: [
                 {
                     id: 'section',

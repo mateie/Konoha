@@ -6,6 +6,8 @@ module.exports = class SearchCommand extends Command {
         super('search', {
             category: 'music',
             description: 'Search a song',
+            clientPermissions: ['CONNECT', 'SPEAK'],
+            userPermissions: ['CONNECT'],
             args: [
                 {
                     id: 'query',

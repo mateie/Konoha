@@ -8,6 +8,8 @@ module.exports = class MuteCommand extends Command {
         super('mute', {
             category: 'moderation',
             description: 'Mute a member',
+            clientPermissions: ['MANAGE_ROLES', 'MUTE_MEMBERS'],
+            userPermissions: ['MUTE_MEMBERS'],
             args: [
                 {
                     id: 'member',

@@ -6,6 +6,8 @@ module.exports = class KickCommand extends Command {
         super('kick', {
             category: 'moderation',
             description: 'Kick a member',
+            clientPermissions: ['KICK_MEMBERS'],
+            userPermissions: ['KICK_MEMBERS'],
             args: [
                 {
                     id: 'member',

@@ -6,6 +6,8 @@ module.exports = class PlayCommand extends Command {
         super('play', {
             category: 'music',
             description: 'Play a song',
+            clientPermissions: ['CONNECT', 'SPEAK'],
+            userPermissions: ['CONNECT'],
             args: [
                 {
                     id: 'query',

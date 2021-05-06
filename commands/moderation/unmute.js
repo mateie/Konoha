@@ -8,6 +8,8 @@ module.exports = class UnmuteCommand extends Command {
         super('unmute', {
             category: 'moderation',
             description: 'Unmute a member',
+            clientPermissions: ['MANAGE_ROLES', 'MUTE_MEMBERS'],
+            userPermissions: ['MANAGE_ROLES', 'MUTE_MEMBERS'],
             args: [
                 {
                     id: 'member',

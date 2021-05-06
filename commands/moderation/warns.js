@@ -9,6 +9,7 @@ module.exports = class WarnsCommand extends Command {
         super('warns', {
             category: 'moderation',
             description: 'Shows all warns of a member or guild',
+            userPermissions: ['VIEW_AUDITT_LOG'],
             args: [
                 {
                     id: 'member',

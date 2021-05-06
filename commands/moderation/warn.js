@@ -7,8 +7,9 @@ module.exports = class WarnCommand extends Command {
     constructor() {
         super('warn', {
             category: 'moderation',
-
             description: 'Warn a member',
+            clientPermissions: ['KICK_MEMBERS'],
+            userPermissions: ['KICK_MEMEBERS'],
             args: [
                 {
                     id: 'member',

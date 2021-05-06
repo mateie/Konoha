@@ -7,7 +7,6 @@ const { owners, token, default_prefix } = require('../config');
 
 const Database = require('./Database');
 const Music = require('./Music');
-const XP = require('./users/XP');
 
 module.exports = class KonohaClient extends AkairoClient {
     constructor() {
@@ -41,7 +40,7 @@ module.exports = class KonohaClient extends AkairoClient {
 
     setup() {
         this.commandHandler.useListenerHandler(this.listenerHandler);
-        this.commandHandler.useListenerHandler(this.inhibitorHandler);
+        this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 
         this.listenerHandler.setEmitters({
             process: process,
@@ -56,7 +55,6 @@ module.exports = class KonohaClient extends AkairoClient {
 
         this.database = new Database(this);
         this.music = new Music(this);
-        this.xp = XP;
     }
 
     start() {

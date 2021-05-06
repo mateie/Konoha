@@ -15,6 +15,7 @@ module.exports = class CommandBlockedInhibitor extends Inhibitor {
             if(!settings.strict.enabled) return false;
             const channel = message.guild.channels.cache.get(settings.strict.channel);
             if(!channel) return false;
+            if(channel.id === message.channel.id) return false;
             message.channel.send(`You can only use commands in ${channel}`);
             return true;
         } catch(err) {

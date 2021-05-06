@@ -1,5 +1,4 @@
 const Command = require('../../struct/Command');
-const Util = require('../../struct/Util');
 
 module.exports = class LoopCommand extends Command {
     constructor() {

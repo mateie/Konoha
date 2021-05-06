@@ -14,11 +14,11 @@ module.exports = class QueueCommand extends Command {
         const { music } = message.guild;
 
         if (!music.player || !music.player.playing) {
-            return message.channel.send(Util.embed().setDescription('Currently not playing anything'));
+            return message.channel.send('**Currently not playing anything**');
         }
 
         if (!music.queue.length) {
-            return message.channel.send(Util.embed().setDescription('Queue is empty'));
+            return message.channel.send('**Queue is empty**');
         }
 
         const queue = music.queue.map((t, i) => `\`${++i}.\` **${t.info.title}** ${t.requester}`);

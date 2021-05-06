@@ -1,5 +1,4 @@
 const Command = require('../../struct/Command');
-const Util = require('../../struct/Util');
 
 module.exports = class SkipCommand extends Command {
     constructor() {

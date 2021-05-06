@@ -32,8 +32,6 @@ module.exports = class PlayCommand extends Command {
             return message.channel.send(Util.embed().setDescription('Lavalink Node is not connected'));
         }
 
-        console.log(query);
-
         try {
             const {
                 loadType,

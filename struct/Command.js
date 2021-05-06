@@ -5,6 +5,7 @@ module.exports = class KonohaCommand extends Command {
         super(id, options);
 
         this.aliases = [id, ...this.aliases];
+        this.typing = true;
         this.examples = [];
     }
 };

@@ -1,6 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const schema = new Schema({
+const schema = new mongoose.Schema({
     id: {
         type: String,
         unique: true,
@@ -64,4 +64,4 @@ const schema = new Schema({
     },
 });
 
-module.exports = model('Guild', schema);
+module.exports = mongoose.model('Guild', schema);

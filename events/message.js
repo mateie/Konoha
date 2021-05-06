@@ -17,7 +17,5 @@ module.exports = class MessageEvent extends Listener {
         ) {
             return;
         }
-
-        await this.client.xp.giveUserXP(message.member);
     }
 };

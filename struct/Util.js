@@ -194,6 +194,8 @@ module.exports = class KonohaUtil {
                 }
                 if (emoji === this.paginationEmojis[2]) currPage++;
 
+                if (currPage < 0) currPage = 0;
+
                 currPage = ((currPage % contents.length) + contents.length) % contents.length;
 
                 const embed = message.embeds[0]
@@ -220,12 +222,12 @@ module.exports = class KonohaUtil {
             owners.push(`${found.username}`);
         });
 
-        if(owners.length === 1) {
+        if (owners.length === 1) {
             return owners[0];
-        } else if(owners.length === 2) {
+        } else if (owners.length === 2) {
             console.log(owners.length, owners);
             return `${owners[0]} and ${owners[1]}`;
-        } else if(owners.length > 2) {
+        } else if (owners.length > 2) {
             return owners.join(', ');
         } else {
             return 'Unknown';

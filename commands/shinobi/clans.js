@@ -1,8 +1,8 @@
 const Command = require('../../struct/Command');
 const Util = require('../../struct/Util');
-const { clans } = require('../../assets/json/shinobi.json');
+const { clans } = require('../../assets/shinobi.js');
 
-module.exports = class ShinobiClansCommand extends Command {
+module.exports = class ClansCommand extends Command {
     constructor() {
         super('clans', {
             description: 'All the clans in Shinobi World and details about them',

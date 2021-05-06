@@ -1,13 +1,14 @@
 const Command = require('../../struct/Command');
 const Util = require('../../struct/Util');
-const ShinobiProfile = require('../../struct/shinobi/Profile');
-const shinobis = require('../../assets/json/shinobi.json');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const { jutsus } = require('../../assets/shinobi');
 
-module.exports = class ShinobiLearnCommand extends Command {
+module.exports = class LearnCommand extends Command {
     constructor() {
         super('learn', {
-            description: 'Learn Ninjutsus, Genjutsus and Taijutsus with Points',
             category: 'shinobi',
+            description: 'Learn Ninjutsus, Genjutsus and Taijutsus with Points',
             args: [
                 {
                     id: 'type',
@@ -20,6 +21,7 @@ module.exports = class ShinobiLearnCommand extends Command {
                 {
                     id: 'jutsu_name',
                     type: 'lowercase',
+                    match: 'rest',
                     prompt: {
                         start: 'Which jutsu you want to learn?',
                     },
@@ -29,58 +31,71 @@ module.exports = class ShinobiLearnCommand extends Command {
     }
 
     async exec(message, { type, jutsu_name }) {
-        const profile = await ShinobiProfile.getProfile(message.member);
+        try {
+            const user = await User.findOne({ id: message.member.id });
+            const stats = user.stats;
+            const jutsuRegex = /jutsu/;
 
-        const jutsu = shinobis[`${type}s`][jutsu_name];
-        if (!jutsu) {
-            return message.reply(`That ${type} doesn't exist`);
-        }
+            if(!stats.rank) {
+                return message.reply('You have to enroll into academy to view your stats');
+            }
 
-        const embed = Util.embed()
-            .setTitle(`Do you want to learn ${jutsu.name}?`)
-            .setDescription(`
-            **Points Cost**: ${jutsu.points}
-            **Chakra Cost**: ${jutsu.cost}\n
-            ${jutsu.description}
-        `)
-            .setFooter('Waiting for response...');
+            const jutsu = jutsus[type.replace(jutsuRegex, '')][jutsu_name];
 
-        const ask = await message.channel.send(embed);
-        const verification = await Util.verify(message.channel, message.author);
-        if (verification === 0) {
-            embed.setFooter(`Timed out. You didn't learn ${jutsu.name}`);
+            if (!jutsu) {
+                return message.reply(`${jutsu_name} ${type} doesn't exist`);
+            }
+
+            const embed = Util.embed()
+                .setTitle(`Do you want to learn ${jutsu.name}?`)
+                .setDescription(`
+                **Chakra Cost**: ${jutsu.chakra_cost}
+                **Points Cost**: ${jutsu.point_cost}\n
+                ${jutsu.description}
+            `)
+                .setFooter('Waiting for response...');
+
+            const ask = await message.channel.send(embed);
+            const verification = await Util.verify(message.channel, message.author);
+            if(verification === 0) {
+                embed.setFooter(`Timed out. You didn't learn ${jutsu.name}`);
+                return ask.edit(embed);
+            } else if(!verification) {
+                embed.setFooter(`You didn't learn ${jutsu.name}`);
+                return ask.edit(embed);
+            }
+
+            const exists = stats.jutsus[type.replace(jutsuRegex, '')].find(j => j.name === jutsu.name) ? true : false;
+
+            if(exists) {
+                embed
+                .setTitle(`You already know ${jutsu.name}`)
+                .setFooter(`Your points: ${stats.points}`);
+                return ask.edit(embed);
+            }
+
+            const bought = stats.points - jutsu.point_cost;
+
+            if(bought < 0) {
+                embed
+                .setTitle('You don\'t have enough points')
+                .setFooter(`Your points: ${stats.points}`);
+                return ask.edit(embed);
+            }
+
+            stats.points = bought;
+
+            stats.jutsus[type.replace(jutsuRegex, '')].push(jutsu);
+
+            const saved = await user.save();
+
+            embed
+            .setTitle(`Successfully learned ${jutsu.name}`)
+            .setFooter(`Your points: ${saved.stats.points}`);
+
             return ask.edit(embed);
-        } else if (!verification) {
-            embed.setFooter(`You didn't learn ${jutsu.name}`);
-            return ask.edit(embed);
+        } catch (err) {
+            console.error(err);
         }
-
-        const exists = profile[type].find(j => j.name === jutsu.name) ? true : false;
-
-        if (exists) {
-            embed.setTitle(`You already know ${jutsu.name}`);
-            embed.setFooter(`Your Points: ${profile.points}`);
-            return ask.edit(embed);
-        }
-
-        const bought = profile.points - jutsu.points;
-
-        if (bought < 0) {
-            embed.setTitle('You don\'t have enough points');
-            embed.setFooter(`Your Points: ${profile.points}`);
-            return ask.edit(embed);
-        }
-
-        profile.points = bought;
-        jutsu.refund = jutsu.points / 2;
-        profile[type].push(jutsu);
-
-        const saved = await profile.save();
-
-        embed.setTitle(`Successfully Learned ${jutsu.name}`);
-        embed.setFooter(`Your Points: ${saved.points}`);
-
-        return ask.edit(embed);
-
     }
 };

@@ -7,7 +7,6 @@ const { owners, token, default_prefix } = require('../config');
 
 const Database = require('./Database');
 const Music = require('./Music');
-const Cards = require('./Cards');
 const XP = require('./users/XP');
 
 module.exports = class KonohaClient extends AkairoClient {
@@ -50,7 +49,6 @@ module.exports = class KonohaClient extends AkairoClient {
 
         this.database = new Database(this);
         this.music = new Music(this);
-        this.cards = Cards;
         this.xp = XP;
     }
 

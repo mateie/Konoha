@@ -8,7 +8,7 @@ module.exports = class PlayCommand extends Command {
             description: 'Play a song',
             args: [
                 {
-                    key: 'query',
+                    id: 'query',
                     type: 'string',
                     prompt: {
                         start: 'What is the song name or the link?',
@@ -31,6 +31,8 @@ module.exports = class PlayCommand extends Command {
         if (!music.node || !music.node.connected) {
             return message.channel.send(Util.embed().setDescription('Lavalink Node is not connected'));
         }
+
+        console.log(query);
 
         try {
             const {

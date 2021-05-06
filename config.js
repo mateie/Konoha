@@ -1,6 +1,7 @@
 const {
     NODE_ENV,
     TOKEN,
+    TOKEN_DEV,
     OWNER,
     SO,
     INVITE_LINK,
@@ -19,7 +20,7 @@ const {
 } = process.env;
 
 module.exports = {
-    token: TOKEN,
+    token: NODE_ENV === 'production' ? TOKEN : TOKEN_DEV,
     default_prefix: NODE_ENV === 'production' ? 'k' : 'd',
     owners: [OWNER, SO],
     invite_link: INVITE_LINK,

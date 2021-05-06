@@ -75,10 +75,11 @@ module.exports = class KonohaClient extends AkairoClient {
     }
 
     log(message) {
+        const time = moment().format('hh:mm A');
         if(message instanceof Error) {
-            console.error(chalk.red(`[${moment().format('hh:mm A')}] ${message}`));
+            console.error(chalk.red(`[${time}] ${message}`));
         }
 
-        console.log(chalk.green(`[${moment().format('hh:mm A')}] ${message}`));
+        console.log(chalk.green(`[${time}] ${message}`));
     }
 };

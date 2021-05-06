@@ -22,7 +22,8 @@ module.exports = class KissCommand extends Command {
     }
 
     async exec(message, { mention }) {
-        const embed = Util.embed();
+        try {
+            const embed = Util.embed();
 
         if (message.author.id !== owners[0] && mention.user.id == owners[1]) {
             return message.channel.send('You can\'t ;)');
@@ -42,5 +43,8 @@ module.exports = class KissCommand extends Command {
         embed.setImage(data.url);
 
         message.channel.send(embed);
+        } catch(err) {
+            this.client.log(new Error(err.message));
+        }
     }
 };

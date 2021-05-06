@@ -21,25 +21,29 @@ module.exports = class RemoveCommand extends Command {
     }
 
     async exec(message, { pos }) {
-        const { music } = message.guild;
+        try {
+            const { music } = message.guild;
 
-        if (!music.player || !music.player.playing) {
-            return message.channel.send('**Currently not playing anything**');
+            if (!music.player || !music.player.playing) {
+                return message.channel.send('**Currently not playing anything**');
+            }
+
+            if (!message.member.voice.channel) {
+                return message.channel.send('**You must be in a voice channel**');
+            }
+
+            if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
+                return message.channel.send(`You must be on **${message.guild.voice.channel}** to use Music commands`);
+            }
+
+            if (isNaN(pos) || pos < 1 || pos > music.queue.length) {
+                return message.channel.send('**Invalid number or exceeds music queue**');
+            }
+
+            const removed = music.queue.splice(--pos, 1)[0];
+            message.channel.send(Util.embed().setDescription(`Removed **${removed.info.title}** from the queue`));
+        } catch(err) {
+            this.client.log(new Error(err.message));
         }
-
-        if (!message.member.voice.channel) {
-            return message.channel.send('**You must be in a voice channel**');
-        }
-
-        if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(`You must be on **${message.guild.voice.channel}** to use Music commands`);
-        }
-
-        if (isNaN(pos) || pos < 1 || pos > music.queue.length) {
-            return message.channel.send('**Invalid number or exceeds music queue**');
-        }
-
-        const removed = music.queue.splice(--pos, 1)[0];
-        message.channel.send(Util.embed().setDescription(`Removed **${removed.info.title}** from the queue`));
     }
 };

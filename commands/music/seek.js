@@ -20,6 +20,7 @@ module.exports = class SeekCommand extends Command {
     }
 
     async exec(message, { duration }) {
+        try {
         const { music } = message.guild;
         const durationPattern = /^[0-5]?[0-9](:[0-5][0-9]){1,2}$/;
 
@@ -48,12 +49,10 @@ module.exports = class SeekCommand extends Command {
             return message.channel.send('**The duration you provided exceeds the duration of the current track**');
         }
 
-        try {
             await music.player.seek(durationMs);
             message.channel.send(Util.embed().setDescription(`Seeked to *${duration}*`));
         } catch (err) {
-            this.client.logger('red', err);
-            message.channel.send(`An error occured: ${err.message}`);
+            this.client.log(new Error(err.message));
         }
     }
 };

@@ -9,6 +9,6 @@ module.exports = class UnhandledRejectionListener extends Listener {
     }
 
     exec(err) {
-        this.client.logger('red', err);
+        this.client.log(new Error(err));
     }
 };

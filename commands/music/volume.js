@@ -18,13 +18,13 @@ module.exports = class VolumeCommand extends Command {
     }
 
     async exec(message, { newVol }) {
-        const { music } = message.guild;
-
-        newVol = parseInt(newVol, 10);
-
-        if (!music.player || !music.player.playing) return message.channel.send('**Currently not playing anything**');
-
         try {
+            const { music } = message.guild;
+
+            newVol = parseInt(newVol, 10);
+
+            if (!music.player || !music.player.playing) return message.channel.send('**Currently not playing anything**');
+
             if (isNaN(newVol)) {
                 message.channel.send(Util.embed().setDescription(`Current Volume \`${music.volume}\``));
             } else {
@@ -38,8 +38,7 @@ module.exports = class VolumeCommand extends Command {
                 message.channel.send(`Volume set to \`${music.volume}\``);
             }
         } catch (err) {
-            this.client.logger('red', err);
-            message.channel.send(`An error occured: ${err.message}`);
+            this.client.log(new Error(err.message));
         }
     }
 };

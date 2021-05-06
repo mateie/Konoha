@@ -32,9 +32,9 @@ module.exports = class KonohaMusic {
         await this.spotify.requestToken();
 
         this.manager
-        .on('ready', node => this.client.logger('green', `Node ${node.id} ready`))
-        .on('disconnect', (ws, node) => this.client.logger('yellow', `Node ${node.id} disconnected`))
-        .on('reconnecting', node => this.client.logger('yellow', `Node ${node.id} reconnecting...`))
-        .on('error', (err, node) => this.client.logger('red', `Node ${node.id} got an error: ${err.message}`));
+        .on('ready', node => this.client.log(`Node ${node.id} ready`))
+        .on('disconnect', (ws, node) => this.client.log('yellow', `Node ${node.id} disconnected`))
+        .on('reconnecting', node => this.client.log('yellow', `Node ${node.id} reconnecting...`))
+        .on('error', (err, node) => this.client.log('red', `Node ${node.id} got an error: ${err.message}`));
     }
 };

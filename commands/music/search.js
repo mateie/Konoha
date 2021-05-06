@@ -20,21 +20,21 @@ module.exports = class SearchCommand extends Command {
     }
 
     async exec(message, { query }) {
-        const { music } = message.guild;
-
-        if (!message.member.voice.channel) {
-            return message.channel.send('**You must be in a voice channel**');
-        }
-
-        if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
-        }
-
-        if (!music.node || !music.node.connected) {
-            return message.channel.send('**Lavalink node not connected**');
-        }
-
         try {
+            const { music } = message.guild;
+
+            if (!message.member.voice.channel) {
+                return message.channel.send('**You must be in a voice channel**');
+            }
+
+            if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
+                return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
+            }
+
+            if (!music.node || !music.node.connected) {
+                return message.channel.send('**Lavalink node not connected**');
+            }
+
             let { tracks } = await music.load(`ytsearch:${query}`);
             if (!tracks.length) {
                 return message.channel.send('**Couldn\'t find any results**');
@@ -86,8 +86,7 @@ module.exports = class SearchCommand extends Command {
 
             music.setTextCh(message.channel);
         } catch (err) {
-            this.client.logger('red', err);
-            message.channel.send('An error occured, please try again');
+            this.client.log(new Error(err.message));
         }
     }
 };

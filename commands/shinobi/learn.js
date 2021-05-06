@@ -95,7 +95,7 @@ module.exports = class LearnCommand extends Command {
 
             return ask.edit(embed);
         } catch (err) {
-            console.error(err);
+            this.client.log(new Error(err.message));
         }
     }
 };

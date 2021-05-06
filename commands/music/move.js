@@ -29,33 +29,37 @@ module.exports = class MoveCommand extends Command {
     }
 
     async exec(message, { from, to }) {
-        const { music } = message.guild;
+        try {
+            const { music } = message.guild;
 
-        if (!music.player || !music.player.playing) {
-            return message.channel.send('**Currently not playing anything**');
+            if (!music.player || !music.player.playing) {
+                return message.channel.send('**Currently not playing anything**');
+            }
+
+            if (!music.queue.length) {
+                return message.channel.send('**Queue is empty**');
+            }
+
+            if (!message.member.voice.channel) {
+                return message.channel.send('**You must be in a voice channel**');
+            }
+
+            if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
+                return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to move a song`);
+            }
+
+
+            if (from === to || (isNaN(from) || from < 1 || from > music.queue.length) || (isNaN(to) || to < 1 || to > music.queue.length)) {
+                return message.channel.send('**Number is invalid or exceeds queue length**');
+            }
+
+            const moved = music.queue[from - 1];
+
+            Util.moveArrayElement(music.queue, from - 1, to - 1);
+
+            message.channel.send(`Moved **${moved.info.title}** to \`${to}\``);
+        } catch(err) {
+            this.client.log(new Error(err.message));
         }
-
-        if (!music.queue.length) {
-            return message.channel.send('**Queue is empty**');
-        }
-
-        if (!message.member.voice.channel) {
-            return message.channel.send('**You must be in a voice channel**');
-        }
-
-        if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to move a song`);
-        }
-
-
-        if (from === to || (isNaN(from) || from < 1 || from > music.queue.length) || (isNaN(to) || to < 1 || to > music.queue.length)) {
-            return message.channel.send('**Number is invalid or exceeds queue length**');
-        }
-
-        const moved = music.queue[from - 1];
-
-        Util.moveArrayElement(music.queue, from - 1, to - 1);
-
-        message.channel.send(`Moved **${moved.info.title}** to \`${to}\``);
     }
 };

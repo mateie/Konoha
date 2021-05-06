@@ -79,8 +79,7 @@ module.exports = class OsuCommand extends Command {
                     if (chunked.length > 1) await Util.pagination(infoMessage, message.author, chunked);
                 });
         } catch (err) {
-            console.error(err);
-            this.client.logger('red', err.message);
+            this.client.log(new Error(err.message));
         }
     }
 };

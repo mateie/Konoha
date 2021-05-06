@@ -88,7 +88,7 @@ module.exports = class MusicHandler {
 
                 this.start();
             })
-            .on('error', console.error);
+            .on('error', err => this.client.log(new Error(err.message)));
     }
 
     async leave(guild) {
@@ -99,7 +99,7 @@ module.exports = class MusicHandler {
                 this.textChannel.send('**Left the voice channel**');
             }
         } catch (err) {
-            this.client.logger('red', err);
+            this.client.log(new Error(err.message));
         }
     }
 

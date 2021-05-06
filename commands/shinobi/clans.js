@@ -11,20 +11,24 @@ module.exports = class ClansCommand extends Command {
     }
 
     async exec(message) {
-        const clansMapped = clans.map(clan => `
+        try {
+            const clansMapped = clans.map(clan => `
             \`${clan.name} Clan\`\n***Chakra Limit***: ${clan.chakra}\n
             ${clan.description}
         `);
 
-        const chunked = Util.chunk(clansMapped, 1).map(x => x.join('\n'));
+            const chunked = Util.chunk(clansMapped, 1).map(x => x.join('\n'));
 
-        const embed = Util.embed()
-            .setTitle(`${this.client.user.username}'s Clans`)
-            .setDescription(chunked[0])
-            .setFooter(`Page 1 of ${chunked.length}`);
+            const embed = Util.embed()
+                .setTitle(`${this.client.user.username}'s Clans`)
+                .setDescription(chunked[0])
+                .setFooter(`Page 1 of ${chunked.length}`);
 
-        const clansMessage = await message.channel.send(embed);
-        if (chunked.length) await Util.pagination(clansMessage, message.author, chunked);
+            const clansMessage = await message.channel.send(embed);
+            if (chunked.length) await Util.pagination(clansMessage, message.author, chunked);
+        } catch(err) {
+            this.client.log(new Error(err.message));
+        }
 
     }
 };

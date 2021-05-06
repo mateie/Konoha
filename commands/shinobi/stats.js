@@ -57,7 +57,7 @@ module.exports = class StatsCommand extends Command {
 
             await message.channel.send(embed);
         } catch (err) {
-            console.error(err);
+            this.client.log(new Error(err.message));
         }
     }
 };

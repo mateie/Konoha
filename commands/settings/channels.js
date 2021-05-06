@@ -26,18 +26,21 @@ module.exports = class ChannelsCommand extends Command {
     }
 
     async exec(message, { section, value }) {
-        const guild = await Guild.findOne({ id: message.guild.id });
-        const setting = guild.settings[section];
-        if (!value) {
-            return message.channel.send(`Current value for **${section}** is ${setting.channel !== null ? message.guild.channels.cache.get(setting.channel) : '**None**'}`);
-        }
+        try {
+            const guild = await Guild.findOne({ id: message.guild.id });
+            const setting = guild.settings[section];
+            if (!value) {
+                return message.channel.send(`Current value for **${section}** is ${setting.channel !== null ? message.guild.channels.cache.get(setting.channel) : '**None**'}`);
+            }
 
-        setting.channel = value.id;
-        guild.save()
-            .then(() => message.channel.send(`**${section}**'s channel was set to ${value}`))
-            .catch(err => {
-                this.client.logger('red', err);
-                message.channel.send('An error occured');
-            });
+            setting.channel = value.id;
+            guild.save()
+                .then(() => message.channel.send(`**${section}**'s channel was set to ${value}`))
+                .catch(err => {
+                    this.client.log(new Error(err.message));
+                });
+        } catch(err) {
+            this.client.log(new Error(err.message));
+        }
     }
 };

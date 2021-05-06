@@ -10,19 +10,23 @@ module.exports = class TableflipCommand extends Command {
     }
 
     async exec(message) {
-        const frames = [
-            '(-°□°)-  ┬─┬',
-            '(╯°□°)╯    ]',
-            '(╯°□°)╯  ︵  ┻━┻',
-            '(╯°□°)╯       [',
-            '(╯°□°)╯           ┬─┬',
-        ];
+        try {
+            const frames = [
+                '(-°□°)-  ┬─┬',
+                '(╯°□°)╯    ]',
+                '(╯°□°)╯  ︵  ┻━┻',
+                '(╯°□°)╯       [',
+                '(╯°□°)╯           ┬─┬',
+            ];
 
-        const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬');
-        for(const frame of frames) {
-            await Util.delay(100);
-            await msg.edit(frame);
+            const msg = await message.channel.send('(\\\\°□°)\\\\  ┬─┬');
+            for (const frame of frames) {
+                await Util.delay(100);
+                await msg.edit(frame);
+            }
+            return msg;
+        } catch(err) {
+            this.client.log(new Error(err.message));
         }
-        return msg;
     }
 };

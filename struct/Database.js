@@ -26,11 +26,11 @@ module.exports = class KonohaDatabase {
                     .save()
                     .then(saved => {
                         const owner = this.client.users.cache.get(guild.ownerID);
-                        this.client.logger('green', `Adding Guild to the Database (ID: ${guild.id} - Name: ${guild.name} - Owner: ${owner.username})`);
+                        this.client.log(`Adding Guild to the Database (ID: ${guild.id} - Name: ${guild.name} - Owner: ${owner.username})`);
 
                         this.guilds.push(saved);
                     })
-                    .catch(err => this.client.logger('red', err));
+                    .catch(err => this.client.log(new Error(err.message)));
             } else {
                 this.guilds.push(dbGuild);
             }
@@ -51,11 +51,11 @@ module.exports = class KonohaDatabase {
                 .save()
                 .then(saved => {
                     const owner = this.client.users.cache.get(guild.ownerID);
-                    this.client.logger('green', `Adding Guild to the Database (ID: ${guild.id} - Name: ${guild.name} - Owner: ${owner.username})`);
+                    this.client.log(`Adding Guild to the Database (ID: ${guild.id} - Name: ${guild.name} - Owner: ${owner.username})`);
 
                     this.guilds.push(saved);
                 })
-                .catch(err => this.client.logger('red', err));
+                .catch(err => this.client.log(err));
         } else {
             this.guilds.push(dbGuild);
         }
@@ -75,11 +75,11 @@ module.exports = class KonohaDatabase {
                     newUser
                         .save()
                         .then(saved => {
-                            this.client.logger('green', `Adding User to the Database (ID: ${user.id} - Username: ${user.username}#${user.discriminator})`);
+                            this.client.log(`Adding User to the Database (ID: ${user.id} - Username: ${user.username}#${user.discriminator})`);
 
                             this.users.push(saved);
                         })
-                        .catch(err => this.client.logger('red', err));
+                        .catch(err => this.client.log(new Error(err.message)));
                 } else {
                     this.users.push(dbUser);
                 }
@@ -100,11 +100,11 @@ module.exports = class KonohaDatabase {
                 newUser
                     .save()
                     .then(saved => {
-                        this.client.logger('green', `Adding User to the Database (ID: ${user.id} - Username: ${user.username}#${user.discriminator})`);
+                        this.client.log(`Adding User to the Database (ID: ${user.id} - Username: ${user.username}#${user.discriminator})`);
 
                         this.users.push(saved);
                     })
-                    .catch(err => this.client.logger('red', err));
+                    .catch(err => this.client.log(new Error(err.message)));
             } else {
                 this.users.push(dbUser);
             }

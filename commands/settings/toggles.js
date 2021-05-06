@@ -22,15 +22,18 @@ module.exports = class TogglesCommand extends Command {
     }
 
     async exec(message, { section }) {
-        const guild = await Guild.findOne({ id: message.guild.id });
-        const toggle = guild.settings[section].enabled;
-        guild.settings[section].enabled = !toggle;
+        try {
+            const guild = await Guild.findOne({ id: message.guild.id });
+            const toggle = guild.settings[section].enabled;
+            guild.settings[section].enabled = !toggle;
 
-        guild.save()
-            .then(updated => message.channel.send(`**${section}** was **${updated.settings[section].enabled ? '✅ Enabled' : '⛔ Disabled'}**`))
-            .catch(err => {
-                this.client.logger('red', err);
-                message.channel.send('An error occured');
-            });
+            guild.save()
+                .then(updated => message.channel.send(`**${section}** was **${updated.settings[section].enabled ? '✅ Enabled' : '⛔ Disabled'}**`))
+                .catch(err => {
+                    this.client.log(new Error(err.message));
+                });
+        } catch (err) {
+            this.client.log(new Error(err.message));
+        }
     }
 };

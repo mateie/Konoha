@@ -20,7 +20,7 @@ module.exports = class EnrollCommand extends Command {
 
             message.channel.send(`${message.member} is now a **${shinobi.stats.rank}** from __**${shinobi.stats.clan.name}**__ in __${this.client.user.username}__`);
         } catch(err) {
-            console.error(err);
+            this.client.log(new Error(err.message));
             message.reply('An error occured, couldn\'t make you a Shinobi, please try again');
         }
     }

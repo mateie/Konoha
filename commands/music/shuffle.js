@@ -11,22 +11,26 @@ module.exports = class ShuffleCommand extends Command {
     }
 
     async exec(message) {
-        const { music } = message.guild;
+        try {
+            const { music } = message.guild;
 
-        if (!music.player && !music.player.playing) {
-            return message.channel.send('**Currently not playing anything**');
+            if (!music.player && !music.player.playing) {
+                return message.channel.send('**Currently not playing anything**');
+            }
+
+            if (!message.member.voice.channel) {
+                return message.channel.send('**You must be in a voice channel**');
+            }
+
+            if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
+                return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
+            }
+
+            music.queue = Util.shuffle(music.queue);
+
+            message.channel.send('**Queue successfully shuffled**');
+        } catch (err) {
+            this.client.log(new Error(err.message));
         }
-
-        if (!message.member.voice.channel) {
-            return message.channel.send('**You must be in a voice channel**');
-        }
-
-        if (message.guild.me.voice.channel && !message.guild.me.voice.channel.equals(message.member.voice.channel)) {
-            return message.channel.send(`You must be in **${message.guild.me.voice.channel}** to use Music commands`);
-        }
-
-        music.queue = Util.shuffle(music.queue);
-
-        message.channel.send('**Queue successfully shuffled**');
     }
 };

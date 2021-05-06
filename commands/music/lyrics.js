@@ -34,7 +34,7 @@ module.exports = class LyricsCommand extends Command {
             const lyricsMessage = await message.channel.send(embed);
             if (splittedLyrics.length > 1) await Util.pagination(lyricsMessage, message.author, splittedLyrics);
         } catch(err) {
-            this.client.logger('red', err);
+            this.client.log(new Error(err.message));
             if (err.message === 'Sorry I couldn\'t find that song\'s lyrics') message.channel.send(Util.embed().setDescription(`**${err.message}**`));
             else message.channel.send(`An error occured: ${err.message}`);
         }

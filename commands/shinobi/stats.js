@@ -20,6 +20,10 @@ module.exports = class StatsCommand extends Command {
 
     async exec(message, { member }) {
         try {
+            if(member.user.bot) {
+                return message.reply('You cannot check bot\'s stats');
+            }
+
             let stats = await User.findOne({ id: member.id }).lean();
             stats = stats.stats;
 
@@ -34,15 +38,22 @@ module.exports = class StatsCommand extends Command {
                 `
                 Born in \`${clan.name} Clan\`
                 Currently **${stats.rank}**\n
+                XP: **${stats.xp}** - Level: **${stats.level}**
+                HP: **${stats.hp}** - Chakra: **${stats.chakra}**\n
                 ***Ninjutsus Learned***: ${jutsus.nin.length}
                 ***Genjutsus Learned***: ${jutsus.gen.length}
                 ***Taijutsus Learned***: ${jutsus.tai.length}
                 `,
             ];
 
+            const clanImageName = `${clan.name.toLowerCase()}.png`;
+
             const embed = Util.embed()
                 .setTitle(`${member.displayName}'s Stats`)
-                .setDescription(info[0]);
+                .attachFiles([`${process.cwd()}/assets/images/clans/${clanImageName}`])
+                .setThumbnail(`attachment://${clanImageName}`)
+                .setDescription(info[0])
+                .setFooter(`Points earned: ${stats.points}`);
 
             await message.channel.send(embed);
         } catch (err) {

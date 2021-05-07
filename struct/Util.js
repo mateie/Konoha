@@ -225,7 +225,6 @@ module.exports = class KonohaUtil {
         if (owners.length === 1) {
             return owners[0];
         } else if (owners.length === 2) {
-            console.log(owners.length, owners);
             return `${owners[0]} and ${owners[1]}`;
         } else if (owners.length > 2) {
             return owners.join(', ');

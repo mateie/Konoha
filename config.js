@@ -1,7 +1,8 @@
 const {
     NODE_ENV,
+    BOT_ID,
+    BOT_SECRET,
     TOKEN,
-    TOKEN_DEV,
     OWNER,
     SO,
     INVITE_LINK,
@@ -17,10 +18,17 @@ const {
     SPOTIFY_ID,
     SPOTIFY_SECRET,
     SPOTIFY_PLAYLIST_PAGE_LIMIT,
+    BOT_ID_DEV,
+    BOT_SECRET_DEV,
+    TOKEN_DEV,
 } = process.env;
 
 module.exports = {
-    token: NODE_ENV === 'production' ? TOKEN : TOKEN_DEV,
+    bot: {
+        token: NODE_ENV === 'production' ? TOKEN : TOKEN_DEV,
+        id: NODE_ENV === 'production' ? BOT_ID : BOT_ID_DEV,
+        secret: NODE_ENV === 'production' ? BOT_SECRET : BOT_SECRET_DEV,
+    },
     default_prefix: NODE_ENV === 'production' ? 'k' : 'd',
     owners: [OWNER, SO],
     invite_link: INVITE_LINK,

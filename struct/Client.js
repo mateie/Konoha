@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const moment = require('moment');
 
-const { owners, token, default_prefix } = require('../config');
+const { owners, bot, default_prefix } = require('../config');
 
 const Database = require('./Database');
 const Music = require('./Music');
@@ -59,7 +59,7 @@ module.exports = class KonohaClient extends AkairoClient {
 
     start() {
         this.setup();
-        return super.login(token);
+        return super.login(bot.token);
     }
 
     setPresence() {

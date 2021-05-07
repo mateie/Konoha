@@ -10,11 +10,11 @@ module.exports = class KissCommand extends Command {
             description: 'Kiss Somebody',
             args: [
                 {
-                    key: 'mention',
+                    id: 'mention',
                     type: 'member',
                     prompt: {
                         start: 'Who do you want to kiss?',
-                        retry: 'You want to kiss that? Try again...',
+                        retry: 'Incorrect User, Try again...',
                     },
                 },
             ],

@@ -12,8 +12,6 @@ module.exports = class ClansCommand extends Command {
 
     async exec(message) {
         try {
-            console.log(clans);
-
             const clansMapped = Object.values(clans).map(clan => `
             **${clan.name} Clan**\n
             ${clan.description}

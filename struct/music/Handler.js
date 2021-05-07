@@ -75,13 +75,6 @@ module.exports = class MusicHandler {
                 this.current = null;
                 if (this.loop) this.queue.push(this.previous);
                 if (!this.queue.length) {
-                    if (this.textChannel) {
-                        this.textChannel.send(
-                            Util.embed()
-                                .setDescription('Queue is empty'),
-                        );
-                    }
-
                     this.reset();
                     return;
                 }

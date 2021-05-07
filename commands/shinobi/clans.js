@@ -1,6 +1,6 @@
 const Command = require('../../struct/Command');
 const Util = require('../../struct/Util');
-const { clans } = require('../../assets/shinobi.js');
+const clans = require('../../assets/shinobi/clans');
 
 module.exports = class ClansCommand extends Command {
     constructor() {
@@ -12,8 +12,10 @@ module.exports = class ClansCommand extends Command {
 
     async exec(message) {
         try {
-            const clansMapped = clans.map(clan => `
-            \`${clan.name} Clan\`\n***Chakra Limit***: ${clan.chakra}\n
+            console.log(clans);
+
+            const clansMapped = Object.values(clans).map(clan => `
+            **${clan.name} Clan**\n
             ${clan.description}
         `);
 

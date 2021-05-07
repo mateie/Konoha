@@ -2,7 +2,7 @@ const Command = require('../../struct/Command');
 const Util = require('../../struct/Util');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const { jutsus } = require('../../assets/shinobi');
+const jutsus = require('../../assets/shinobi/jutsus');
 
 module.exports = class LearnCommand extends Command {
     constructor() {

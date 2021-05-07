@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { clans } = require('../assets/shinobi');
+const clans = require('../assets/shinobi/clans');
 
 const schema = new mongoose.Schema({
     id: {

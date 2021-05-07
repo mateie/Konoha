@@ -7,6 +7,7 @@ const { owners, bot, default_prefix } = require('../config');
 
 const Database = require('./Database');
 const Music = require('./Music');
+const Dashboard = require('../dashboard/app');
 
 module.exports = class KonohaClient extends AkairoClient {
     constructor() {
@@ -55,6 +56,8 @@ module.exports = class KonohaClient extends AkairoClient {
 
         this.database = new Database(this);
         this.music = new Music(this);
+
+        Dashboard(this);
     }
 
     start() {

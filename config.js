@@ -21,6 +21,7 @@ const {
     BOT_ID_DEV,
     BOT_SECRET_DEV,
     TOKEN_DEV,
+    JWT_SECRET,
 } = process.env;
 
 module.exports = {
@@ -49,5 +50,8 @@ module.exports = {
         id: SPOTIFY_ID,
         secret: SPOTIFY_SECRET,
         playlist_limit: SPOTIFY_PLAYLIST_PAGE_LIMIT,
+    },
+    dashboard: {
+        jwt_secret: JWT_SECRET,
     },
 };

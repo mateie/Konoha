@@ -20,7 +20,7 @@ module.exports = class CommandBlockedInhibitor extends Inhibitor {
             return true;
         } catch(err) {
             this.client.log(new Error(err.message));
-            return false;
+            return true;
         }
 
     }

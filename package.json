@@ -7,14 +7,14 @@
   "dependencies": {
     "@lavacord/discord.js": "^0.0.7",
     "axios": "^0.21.1",
-    "canvacord": "^5.2.0",
-    "canvas": "^2.7.0",
+    "canvacord": "^5.2.1",
+    "canvas": "^2.8.0",
     "chalk": "^4.1.1",
     "color-to-name": "^1.1.0",
     "colornames": "^1.1.1",
     "common-tags": "^1.8.0",
     "cors": "^2.8.5",
-    "didyoumean2": "^4.2.0",
+    "didyoumean2": "^5.0.0",
     "discord-akairo": "^8.1.0",
     "discord-oauth2": "^2.6.0",
     "discord.js": "^12.5.3",
@@ -24,15 +24,15 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.12.7",
+    "mongoose": "^5.12.13",
     "node-fetch": "^2.6.1",
     "node-osu": "^2.2.1",
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
     "string-progress": "^1.8.9",
-    "ytdl-core": "^4.7.0"
+    "ytdl-core": "^4.8.2"
   },
   "devDependencies": {
-    "dotenv": "^9.0.0"
+    "dotenv": "^10.0.0"
   }
 }
